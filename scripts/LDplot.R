@@ -1,0 +1,18 @@
+library("LDheatmap")
+library("genetics")
+library("grid")
+setwd("./scripts/temp/")
+SNPdata <- read.table("temp.replace.rank.vcf",header=T,sep=" ")
+SNPpos <- read.table("snp.pos.txt",header=F,sep="\t")
+num <- ncol(SNPdata)
+for(i in 1:num){
+ SNPdata[,i]<-as.genotype(SNPdata[,i])
+}
+pos <- as.vector(unlist(SNPpos))
+color.rgb <- colorRampPalette(rev(c("white","red")),space="rgb")
+pdf("test.pdf",width=50,height=50)
+LDheatmap(SNPdata,pos,color=color.rgb(20),flip=TRUE)
+grid.edit(gPath("ldheatmap","heatMap","heatmap"),gp=gpar(col="white",lwd=8))
+dev.off()
+## SNP name
+## LDheatmap(SNPdata,pos,color=color.rgb(20),flip=TRUE,SNP.name=c("A","B"))
