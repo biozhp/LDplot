@@ -1,3 +1,6 @@
+suppressMessages(library("LDheatmap"))
+suppressMessages(library("genetics"))
+suppressMessages(library("grid"))
 library("LDheatmap")
 library("genetics")
 library("grid")
@@ -10,7 +13,7 @@ for(i in 1:num){
 }
 pos <- as.vector(unlist(SNPpos))
 color.rgb <- colorRampPalette(rev(c("white","red")),space="rgb")
-pdf("test.pdf",width=50,height=50)
+pdf("LDplot.pdf",width=50,height=50)
 LDheatmap(SNPdata,pos,color=color.rgb(20),flip=TRUE)
 grid.edit(gPath("ldheatmap","heatMap","heatmap"),gp=gpar(col="white",lwd=8))
 dev.off()
